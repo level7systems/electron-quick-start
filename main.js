@@ -12,12 +12,15 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
+  // XXX: Sending in this moment will halt node event loop in browser window
+  mainWindow.webContents.send('event', {})
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
